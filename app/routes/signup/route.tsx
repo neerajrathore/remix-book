@@ -3,7 +3,9 @@ import { Form, Link, redirect, useActionData } from "@remix-run/react";
 import { Button } from "~/components/Button";
 import { Input, Label } from "~/components/Input";
 import { validate } from './validate'
-import { authCookie, createAccount } from "~/auth";
+import { authCookie } from "~/auth";
+import { createAccount } from "./queries";
+
 export async function action({ request }: ActionFunctionArgs) {
     const formData = await request.formData()
     let email = String(formData.get('email'));

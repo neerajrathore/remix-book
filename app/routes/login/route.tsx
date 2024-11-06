@@ -3,8 +3,9 @@ import { Form, Link, redirect, useActionData } from "@remix-run/react";
 import { Button } from "~/components/Button";
 import { Input, Label } from "~/components/Input";
 import { validate } from './validate'
-import { authCookie, createAccount } from "~/auth";
+import { authCookie } from "~/auth";
 import { login } from "./queries";
+
 export async function action({ request }: ActionFunctionArgs) {
     const formData = await request.formData()
     let email = String(formData.get('email'));
@@ -14,7 +15,7 @@ export async function action({ request }: ActionFunctionArgs) {
         return json({ errors }, 400)
     }
 
-    let { userId } = await login(email, password)
+    let userId = await login(email, password)
     if (!userId) {
         return json({ errors: { email: "invalid" } }, 400)
     }
@@ -26,8 +27,9 @@ export async function action({ request }: ActionFunctionArgs) {
     })
 }
 
-export default function SignUp() {
+export default function Login() {
     let actionData = useActionData<typeof action>()
+    console.log(actionData, "actionData");
 
     return (
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
@@ -68,14 +70,13 @@ export default function SignUp() {
                         />
                     </div>
 
-                    <Button type="submit">Sign in</Button>
+                    <Button style={{ background: "black" }} type="submit">Sign in</Button>
 
                     <div className="text-sm text-slate-500">
                         Already have an account?{" "}
                         <Link className="underline" to="/login">
                             Log in
                         </Link>
-                        .
                     </div>
                 </Form>
             </div>
