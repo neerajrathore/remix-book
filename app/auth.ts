@@ -27,6 +27,7 @@ export async function createAccount(email: string, password: string) {
 export async function requireAuthCookie(request: Request) {
   // get cookie
   let userId = await authCookie.parse(request.headers.get("Cookie"));
+  console.log(userId, "requireAuthCookie");
 
   if (!userId) {
     // in js when we throw an error all execution will stops and remix will catch that error 

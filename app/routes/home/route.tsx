@@ -38,6 +38,8 @@ export default function Home() {
 
 function Boards() {
     let { boards } = useLoaderData<typeof loader>();
+    console.log(boards, "boards data");
+
     return (
         <div className="p-8">
             <h2 className="font-bold mb-2 text-xl">Boards</h2>
@@ -97,7 +99,7 @@ function NewBoard() {
 
     return (
         <Form method="post" className="p-8 max-w-md">
-            {/* <input type="hidden" name="intent" value="createBoard" /> */}
+            <input type="hidden" name="intent" value="createBoard" />
             <div>
                 <h2 className="font-bold mb-2 text-xl">New Board</h2>
                 <LabeledInput
