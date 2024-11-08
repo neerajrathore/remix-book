@@ -18,17 +18,17 @@ export function NewCard({
 }) {
   let textAreaRef = useRef<HTMLTextAreaElement>(null);
   let buttonRef = useRef<HTMLButtonElement>(null);
-  //   let submit = useSubmit();
-  let fetcher = useFetcher();
+  let submit = useSubmit();
+  // let fetcher = useFetcher();
 
-  useEffect(() => {
-    if (fetcher.state === "idle" && fetcher.data) {
-      onAddCard()
-    }
-  }, [fetcher])
+  // useEffect(() => {
+  //   if (fetcher.state === "idle" && fetcher.data) {
+  //     onAddCard()
+  //   }
+  // }, [fetcher])
 
   return (
-    <fetcher.Form
+    <Form
       method="post"
       className="flex flex-col gap-2.5 p-2 pt-1"
       onSubmit={(event) => {
@@ -41,7 +41,8 @@ export function NewCard({
         let id = crypto.randomUUID();
         formData.set(ItemMutationFields.id.name, id);
 
-        fetcher.submit(formData, { method: "post" });
+        // fetcher.submit(formData, { method: "post" });
+        submit(formData, { method: "post" });
 
         // submit(formData, {
         //   method: "post",
@@ -52,6 +53,7 @@ export function NewCard({
 
         invariant(textAreaRef.current);
         textAreaRef.current.value = "";
+        // for scrolling screen
         // onAddCard();
       }}
       onBlur={(event) => {
@@ -95,9 +97,13 @@ export function NewCard({
         }}
       />
       <div className="flex justify-between">
-        <SaveButton style={{ background: "black" }} ref={buttonRef} disabled={fetcher.state !== "idle"}>Save Card{fetcher.state}</SaveButton>
+        <SaveButton
+          style={{ background: "black" }}
+          ref={buttonRef}
+        // disabled={fetcher.state !== "idle"}
+        >Save Card</SaveButton>
         <CancelButton onClick={onComplete}>Cancel</CancelButton>
       </div>
-    </fetcher.Form>
+    </Form>
   );
 }

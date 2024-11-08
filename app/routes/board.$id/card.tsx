@@ -28,6 +28,7 @@ export function Card({
   let submit = useSubmit();
   let deleteFetcher = useFetcher();
 
+  // state on each card
   let [acceptDrop, setAcceptDrop] = useState<"none" | "top" | "bottom">("none");
 
   return deleteFetcher.state !== "idle" ? null : (
@@ -68,6 +69,7 @@ export function Card({
           {
             method: "post",
             navigate: false,
+            // to move card in same column
             fetcherKey: `card:${transfer.id}`,
           },
         );

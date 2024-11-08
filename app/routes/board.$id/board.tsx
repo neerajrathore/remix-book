@@ -120,12 +120,15 @@ function usePendingItems() {
   type PendingItem = ReturnType<typeof useFetchers>[number] & {
     formData: FormData;
   };
+  // useFetchers have post request data going over the network
   return useFetchers()
+    // filter fetchers what we care about
     .filter((fetcher): fetcher is PendingItem => {
       if (!fetcher.formData) return false;
       let intent = fetcher.formData.get("intent");
       return intent === INTENTS.createItem || intent === INTENTS.moveItem;
     })
+    // convert FormData into something that is readable
     .map((fetcher) => {
       let columnId = String(fetcher.formData.get("columnId"));
       let title = String(fetcher.formData.get("title"));
